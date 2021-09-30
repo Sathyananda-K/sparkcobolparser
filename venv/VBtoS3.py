@@ -18,9 +18,9 @@ spark=SparkSession.\
     getOrCreate()
 
 # AWS secret constants
-Access_Key = 'ASIAYEZDQG37V6CB77EX'
-Secret_Key = 'WKdeufPMlv1+vnvU9zHtJozzNZizkF6sy0HhoDi4'
-Session_Key = 'IQoJb3JpZ2luX2VjEGgaCXVzLWVhc3QtMSJGMEQCHzqJzLREP+7xHRS/bi3lgUXf7bJupMGN5oZwh6Av0n8CIQDwYE9GWiem+kH6AlE+/aWJH3CpBU5qIGp3ph8TBgN4YyqCAwjR//////////8BEAAaDDU2MDAzMDgyNDE5MSIMpPS62xL56ErqgOtrKtYCjHLF36GuYsVxC69X7tQWWLIGBwjIPEGm68f3OuwtB/rYQ25pvfvY1LJ5xtGGFUVFQOMVK37wQzqutr6A1FdqnZuGJgcQoGejCzufo32XVxVroefdZ6sNZSZI+N6NWinN0vnwb6l1kbhaAtnO+RIVLtRFK1pl3FJsQXeHmwNRzk+KNtBIuC0TnuP7In9dqGtlyZ7M4Z+TlpNjNJGIkNBLOOC26w3cO8bLj0dwhitlUmhUeESaTMlrak2B5wlI/G8JKeJMYsLbWidnn3uRSkB3t5iyCVm0O6IBidEUPQLvItPIJck9WyNjOzdiZjRsOkBjl/C/Mkw/6xk06hIuuD9924tB9B2T305Q5cpJSlIPrJ9qg61JXNreuhO5ioW2MW3Pu+fY5ABYTgM2eIF4bU+3ty/+qsX+CyXUVn5o+oHL1NuSjGmZxoIR4ViL++k6sx7npqr6d/2sMMTX1YoGOqcB4v20D/i4TYl/ftNoNb10C7qv034xHW09fyztkqKGG6oTKMAPNaLtKRbV9S/MDHlEcpD5F1tViyamtEsirR94pmkxFfBRaa+kT6C2/c+K8K0r6G96uCOtK7xYT4FN/Mr9WF82q6jz2Fsugu0QsDsJnS6NlmuXsySBXeIJXyZqse84xyC3i6XPoYAhrMVg5PXz0vpqEQr71Si1XYLsvBlySyfq5w8/g8s='
+Access_Key = 'ak'
+Secret_Key = 'sk'
+Session_Key = ''sk'
 
 # Set S3 bucket
 sc = SparkContext.getOrCreate()
@@ -38,12 +38,12 @@ s3 = boto3.resource('s3',
                     aws_session_token = Session_Key)
 
 # Object to refer Ebcdic Data
-EData = s3.Object('oedsd-acc-s3-dl-ingestion-sftpscore-con-ue1-all',
-                  'score/A_T1_DL_ZZ_OF1012CC_CTAMPC_RTADAILY')
+EData = s3.Object('s3 bucket',
+                  'key')
 
 # Object to refer Cobol Copybook
-CobCpy = s3.Object('oedsd-dev-s3-dl-infra-appcode-ltd-ue1-all',
-                   'appcode/score/RTADAIL1.cob')
+CobCpy = s3.Object('s3 bucket',
+                   'key')
 
 # Variable file processing
 df = spark.read.format('cobol'). \
@@ -54,7 +54,7 @@ df = spark.read.format('cobol'). \
 
 # write CSV to S3
 df.coalesce(1).\
-    write.csv("s3://oedsd-dev-s3-dl-score-raw-con-ue1-all/score/2021/09/30/RTADAILY",mode='overwrite',header=True)
+    write.csv("s3 bucket with file name link complete",mode='overwrite',header=True)
 
 
 
